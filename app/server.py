@@ -5,6 +5,7 @@ load_dotenv()
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.connections.connection import create_pool, close_pool
+from app.routes.userRoutes import router as get_all_users_router
 
 
 @asynccontextmanager
@@ -31,6 +32,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(get_all_users_router)
 
 
 @app.get("/")
